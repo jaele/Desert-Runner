@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="C:\Users\James\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-backend-android\1.9.7\884a964d5a09643269390bdc4d30fc7bf8b0b9eb\gdx-backend-android-1.9.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="884a964d5a09643269390bdc4d30fc7bf8b0b9eb">
+        <dex dex="C:\Users\James\Desktop\Game Project\Desert-Runner\DesertRunner\android\build\intermediates\pre-dexed\debug\gdx-backend-android-1.9.7_cb7a6bf74387ca324a7d8df56ea88d06e25fbe9a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\James\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx-box2d\1.9.7\ad5b0c9246497c2141580f26ad82f51ecc9879e5\gdx-box2d-1.9.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="ad5b0c9246497c2141580f26ad82f51ecc9879e5">
+        <dex dex="C:\Users\James\Desktop\Game Project\Desert-Runner\DesertRunner\android\build\intermediates\pre-dexed\debug\gdx-box2d-1.9.7_82bbb2f15393a65932815302ca88d559e657ab22.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\James\Desktop\Game Project\Desert-Runner\DesertRunner\core\build\libs\core-1.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="b849836457d300c2f752e1e5f25dcbb98af2ab1b">
+        <dex dex="C:\Users\James\Desktop\Game Project\Desert-Runner\DesertRunner\android\build\intermediates\pre-dexed\debug\core-1.0_6cc9770552251fe0bcf8358773434ab479943ab4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\James\.gradle\caches\modules-2\files-2.1\com.badlogicgames.gdx\gdx\1.9.7\8a021ba0bb6555c25dfc272697d379215aa05ed1\gdx-1.9.7.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8a021ba0bb6555c25dfc272697d379215aa05ed1">
+        <dex dex="C:\Users\James\Desktop\Game Project\Desert-Runner\DesertRunner\android\build\intermediates\pre-dexed\debug\gdx-1.9.7_47867767d3c1023111354f289764dd6b9d3118c3.jar" />
+    </item>
+
+</items>

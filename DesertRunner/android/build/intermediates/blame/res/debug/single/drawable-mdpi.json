@@ -2,5 +2,9 @@
     {
         "merged": "C:\\Users\\James\\Desktop\\Android Project\\DesertRunner\\android\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\ic_launcher.png",
         "source": "C:\\Users\\James\\Desktop\\Android Project\\DesertRunner\\android\\res\\drawable-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\James\\Desktop\\Game Project\\Desert-Runner\\DesertRunner\\android\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi\\ic_launcher.png",
+        "source": "C:\\Users\\James\\Desktop\\Game Project\\Desert-Runner\\DesertRunner\\android\\res\\drawable-mdpi\\ic_launcher.png"
     }
 ]
