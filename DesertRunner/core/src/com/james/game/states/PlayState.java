@@ -1,15 +1,19 @@
 package com.james.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.james.game.DesertRunner;
 import com.james.game.sprites.Man;
 import com.james.game.sprites.Obstacle;
 import com.badlogic.gdx.utils.Array;
-
 
 /**
  * Created by James on 11/11/2017.
@@ -33,9 +37,25 @@ public class PlayState extends State {
 
     private Array<Obstacle> cacti_1;
 
+
+    public static BitmapFont fontMedium;
+    private Stage uiStage;
+    private Label scoreLabel;
+    private int score;
+
+
     public PlayState(GameStateManager gsm) {
         super(gsm);
 
+
+        fontMedium = new BitmapFont(Gdx.files.internal("font/font.fnt"),
+                Gdx.files.internal("font/font_0.png"), false);
+
+        uiStage = new Stage(new StretchViewport(DesertRunner.WIDTH, DesertRunner.HEIGHT));
+
+        scoreLabel = new Label("0", new Label.LabelStyle(fontMedium, Color.WHITE));
+        scoreLabel.setPosition(DesertRunner.WIDTH/2, DesertRunner.HEIGHT * .9f, Align.center);
+        uiStage.addActor(scoreLabel);
 
         man = new Man(50, 300);
 
@@ -65,6 +85,8 @@ public class PlayState extends State {
 
         if(Gdx.input.justTouched() && !(man.aboveGround())) {
             man.jump();
+            score++;
+            updateScoreLabel();
         } else {
             return;
         }
@@ -90,13 +112,11 @@ public class PlayState extends State {
             if(cacti.collides(man.getBounds())) {
                 gsm.set(new PlayState(gsm));
                 man.getMovement();
+                score = 0;
                 break;
             }
         }
-
-
         cam.update();
-
     }
 
     @Override
@@ -111,6 +131,7 @@ public class PlayState extends State {
             sb.draw(cacti.getCacti_1(), cacti.getPosCacti_1().x, cacti.getPosCacti_1().y);
         }
 
+
         sb.draw(signarrow, signarrowPos.x, signarrowPos.y);
         sb.draw(ground, groundPos1.x, groundPos1.y);
         sb.draw(ground, groundPos2.x, groundPos2.y);
@@ -118,6 +139,8 @@ public class PlayState extends State {
         sb.draw(ground, groundPos4.x, groundPos4.y);
         sb.draw(ground, groundPos5.x, groundPos5.y);
         sb.end();
+
+        uiStage.draw();
     }
 
     @Override
@@ -131,6 +154,8 @@ public class PlayState extends State {
             cacti.dispose();
             System.out.println("Play State Dispose");
         }
+
+        uiStage.dispose();
     }
 
     private void updateGround() {
@@ -154,5 +179,9 @@ public class PlayState extends State {
         if(cam.position.x - (cam.viewportWidth / 2 ) > groundPos5.x + ground.getWidth()) {
             groundPos5.add(ground.getWidth() * 5, 0);
         }
+    }
+
+    private void updateScoreLabel() {
+        scoreLabel.setText(String.valueOf(score));
     }
 }

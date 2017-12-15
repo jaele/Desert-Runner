@@ -46,7 +46,7 @@ public class Man {
 
         velocity.scl(1/dt);
         bounds.setPosition(position.x, position.y);
-        MOVEMENT = MOVEMENT + 0.5f;
+        MOVEMENT = MOVEMENT + 0.4f;
     }
 
 
@@ -58,8 +58,9 @@ public class Man {
         return manAnimation.getFrame();
     }
 
-    public void jump() {
+    public boolean jump() {
         velocity.y = 350;
+        return true;
     }
 
     public float getMovement() {
