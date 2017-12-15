@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Vector3;
 public class Man {
 
     private static final int GRAVITY = -15;
-    private static final int MOVEMENT = 100;
+    private static float MOVEMENT = 100;
     private Vector3 position;
     private Vector3 velocity;
     private Rectangle bounds;
@@ -21,13 +21,9 @@ public class Man {
     private Texture texture;
     private Sound run;
 
-    private Texture jump;
-
     public Man(int x, int y) {
         position = new Vector3(x,y,0);
         velocity = new Vector3(0,0,0);
-        //man = new Texture("test.png");
-        //jump = new Texture("jump.png");
         texture = new Texture("runani.png");
         manAnimation = new Animation(new TextureRegion(texture), 10, 0.5f);
         bounds = new Rectangle(x, y, texture.getWidth() / 10, texture.getHeight());
@@ -38,7 +34,6 @@ public class Man {
         manAnimation.update(dt);
         if(position.y > 0) {
 
-            //getJump();
             velocity.add(0, GRAVITY, 0 );
         }
 
@@ -51,7 +46,9 @@ public class Man {
 
         velocity.scl(1/dt);
         bounds.setPosition(position.x, position.y);
+        MOVEMENT = MOVEMENT + 0.5f;
     }
+
 
     public Vector3 getPosition() {
         return position;
@@ -61,13 +58,13 @@ public class Man {
         return manAnimation.getFrame();
     }
 
-    //public Texture getJump() {
-        //return jump;
-   // }
-
-
     public void jump() {
-        velocity.y = 300;
+        velocity.y = 350;
+    }
+
+    public float getMovement() {
+        MOVEMENT = 100;
+        return MOVEMENT;
     }
 
     public Rectangle getBounds() {
