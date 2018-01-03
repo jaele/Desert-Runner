@@ -1,7 +1,6 @@
 package com.james.game.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -12,9 +11,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.james.game.DesertRunner;
+import com.james.game.sounds.Sfx;
 import com.james.game.sprites.Man;
 import com.james.game.sprites.Obstacle;
 import com.badlogic.gdx.utils.Array;
+
 
 /**
  * Created by James on 11/11/2017.
@@ -47,9 +48,6 @@ public class PlayState extends State {
     private Label scoreLabel;
     private int score;
 
-    private Music music;
-
-
     public PlayState(GameStateManager gsm) {
         super(gsm);
 
@@ -69,7 +67,7 @@ public class PlayState extends State {
 
         bg = new Texture("png/bg.png");
         ground = new Texture("png/tile/2.png");
-        signarrow = new Texture("png/objects/signarrow.png");
+        signarrow = new Texture("png/signarrow.png");
 
         signarrowPos = new Vector2(cam.position.x - cam.viewportWidth / 2, 32);
         groundPos1 = new Vector2(cam.position.x - cam.viewportWidth / 2, GROUND_Y_OFFSET);
@@ -93,14 +91,14 @@ public class PlayState extends State {
 
     }
 
+
     @Override
     protected void handleInput() {
 
         if(Gdx.input.justTouched() && !(man.aboveGround())) {
             man.jump();
-            music = Gdx.audio.newMusic(Gdx.files.internal("jump.wav"));
-            music.setVolume(0.3f);
-            music.play();
+            Sfx.PlayJumpSound();
+
         } else {
             return;
         }
@@ -125,9 +123,8 @@ public class PlayState extends State {
             }
 
             if(cacti.collides(man.getBounds())) {
-                music = Gdx.audio.newMusic(Gdx.files.internal("hit.wav"));
-                music.setVolume(0.5f);
-                music.play();
+                Sfx.PlayHitSound();
+
                 gsm.set(new PlayState(gsm));
                 man.getMovement();
                 score = 0;
@@ -148,9 +145,8 @@ public class PlayState extends State {
             if(cn.collectsCoin(man.getBounds())) {
                 cn.reposition(cn.getPosCoin().x + ((Obstacle.COIN_WIDTH + COIN_SPACING) *
                         COIN_COUNT));
-                music = Gdx.audio.newMusic(Gdx.files.internal("coincollect.wav"));
-                music.setVolume(0.5f);
-                music.play();
+                Sfx.PlayCoinSound();
+
                 gotHit = true;
                 man.increaseMovement();
             }

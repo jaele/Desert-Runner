@@ -1,4 +1,4 @@
-#Sun Dec 10 04:22:30 PST 2017
+#Tue Jan 02 22:22:51 PST 2018
 base.0=C\:\\Users\\James\\Desktop\\Game Project\\Desert-Runner\\DesertRunner\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
 renamed.0=classes.dex
 file.0=C\:\\Users\\James\\Desktop\\Game Project\\Desert-Runner\\DesertRunner\\android\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex

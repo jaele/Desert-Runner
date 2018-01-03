@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.james.game.sounds.Sfx;
 import com.james.game.states.GameStateManager;
 import com.james.game.states.MenuState;
 
@@ -30,6 +31,8 @@ public class DesertRunner extends ApplicationAdapter {
 		music.setVolume(0.5f);
 		music.play();
 
+
+		Sfx.Initialize();
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		gsm.push(new MenuState(gsm));
 
