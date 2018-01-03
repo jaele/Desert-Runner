@@ -1,6 +1,7 @@
 package com.james.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -27,6 +28,9 @@ public class PlayState extends State {
     private static final int CACTI_COUNT = 4;
     private static final int CACTI_SPACING = 125;
 
+    private static final int COIN_COUNT = 4;
+    private static final int COIN_SPACING = 125;
+
     private Man man;
     private Texture bg;
     private Texture ground;
@@ -36,12 +40,14 @@ public class PlayState extends State {
     private Vector2 groundPos1, groundPos2, groundPos3, groundPos4, groundPos5;
 
     private Array<Obstacle> cacti_1;
-
+    private Array<Obstacle> coin;
 
     public static BitmapFont fontMedium;
     private Stage uiStage;
     private Label scoreLabel;
     private int score;
+
+    private Music music;
 
 
     public PlayState(GameStateManager gsm) {
@@ -74,10 +80,17 @@ public class PlayState extends State {
 
 
         cacti_1 = new Array<Obstacle>();
+        coin = new Array<Obstacle>();
 
         for(int i = 1; i < CACTI_COUNT; i++) {
             cacti_1.add(new Obstacle(i * (CACTI_SPACING + Obstacle.CACTI_WIDTH)));
         }
+
+        for(int i = 1; i < COIN_COUNT; i++) {
+            coin.add(new Obstacle(i * (COIN_SPACING + Obstacle.COIN_WIDTH)));
+        }
+
+
     }
 
     @Override
@@ -85,8 +98,9 @@ public class PlayState extends State {
 
         if(Gdx.input.justTouched() && !(man.aboveGround())) {
             man.jump();
-            score++;
-            updateScoreLabel();
+            music = Gdx.audio.newMusic(Gdx.files.internal("jump.wav"));
+            music.setVolume(0.3f);
+            music.play();
         } else {
             return;
         }
@@ -98,6 +112,7 @@ public class PlayState extends State {
         handleInput();
         updateGround();
         man.update(dt);
+        boolean gotHit = false;
 
         cam.position.x = man.getPosition().x + 80;
 
@@ -110,12 +125,44 @@ public class PlayState extends State {
             }
 
             if(cacti.collides(man.getBounds())) {
+                music = Gdx.audio.newMusic(Gdx.files.internal("hit.wav"));
+                music.setVolume(0.5f);
+                music.play();
                 gsm.set(new PlayState(gsm));
                 man.getMovement();
                 score = 0;
                 break;
             }
         }
+
+        for(Obstacle cn: coin) {
+
+            gotHit = false;
+
+            if(cam.position.x - (cam.viewportWidth / 2) > cn.getPosCoin().x +
+                    cn.getCoin().getWidth()) {
+                cn.reposition(cn.getPosCoin().x + ((Obstacle.COIN_WIDTH + COIN_SPACING) *
+                        COIN_COUNT));
+            }
+
+            if(cn.collectsCoin(man.getBounds())) {
+                cn.reposition(cn.getPosCoin().x + ((Obstacle.COIN_WIDTH + COIN_SPACING) *
+                        COIN_COUNT));
+                music = Gdx.audio.newMusic(Gdx.files.internal("coincollect.wav"));
+                music.setVolume(0.5f);
+                music.play();
+                gotHit = true;
+                man.increaseMovement();
+            }
+        }
+
+        if(gotHit == true) {
+            score++;
+            updateScoreLabel();
+        }
+
+
+
         cam.update();
     }
 
@@ -129,6 +176,10 @@ public class PlayState extends State {
 
         for(Obstacle cacti: cacti_1) {
             sb.draw(cacti.getCacti_1(), cacti.getPosCacti_1().x, cacti.getPosCacti_1().y);
+        }
+
+        for(Obstacle cn: coin) {
+            sb.draw(cn.getCoin(), cn.getPosCoin().x, cn.getPosCoin().y);
         }
 
 
@@ -152,6 +203,11 @@ public class PlayState extends State {
         ground.dispose();
         for(Obstacle cacti: cacti_1) {
             cacti.dispose();
+            System.out.println("Play State Dispose");
+        }
+
+        for(Obstacle cn: coin) {
+            cn.dispose();
             System.out.println("Play State Dispose");
         }
 

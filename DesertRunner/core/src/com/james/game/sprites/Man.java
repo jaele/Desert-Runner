@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Vector3;
 public class Man {
 
     private static final int GRAVITY = -15;
-    private static float MOVEMENT = 100;
+    private static float MOVEMENT = 150;
     private Vector3 position;
     private Vector3 velocity;
     private Rectangle bounds;
@@ -46,7 +46,7 @@ public class Man {
 
         velocity.scl(1/dt);
         bounds.setPosition(position.x, position.y);
-        MOVEMENT = MOVEMENT + 0.4f;
+        //MOVEMENT = MOVEMENT + 0.2f;
     }
 
 
@@ -64,7 +64,12 @@ public class Man {
     }
 
     public float getMovement() {
-        MOVEMENT = 100;
+        MOVEMENT = 150;
+        return MOVEMENT;
+    }
+
+    public float increaseMovement() {
+        MOVEMENT = MOVEMENT + 5f;
         return MOVEMENT;
     }
 
