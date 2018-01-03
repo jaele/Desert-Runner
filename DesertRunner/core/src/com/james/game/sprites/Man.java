@@ -59,7 +59,9 @@ public class Man {
     }
 
     public boolean jump() {
-        velocity.y = 350;
+
+        velocity.y = 375;
+
         return true;
     }
 
